@@ -13,6 +13,14 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+$router->group(['name' => 'api'], function () use ($router) {
+    $router->group(['prefix' => 'sports'], function () use ($router) {
+        $router->get('/sports/activies', function () {
+            return ['1', '2'];
+        });
+
+        $router->post('/sports/activity', function () {
+            return response()->json(['some'], 400);
+        });
+    });
 });
