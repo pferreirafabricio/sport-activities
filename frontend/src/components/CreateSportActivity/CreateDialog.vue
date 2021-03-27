@@ -226,6 +226,7 @@ import api from '@/api';
 
 export default {
   name: 'CreateSportActivityDialog',
+  emits: ['getAllEvents'],
   data() {
     return {
       Fields: {
@@ -286,6 +287,7 @@ export default {
 
           this.open = false;
           this.cleanData();
+          this.$emits('newActivityCreated');
         })
         .catch(() => {
           this.notification.show = true;
