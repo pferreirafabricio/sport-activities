@@ -12,7 +12,7 @@
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
-import CreateSportActivity from '../components/CreateSportActivity.vue';
+import CreateSportActivity from '../components/CreateSportActivity/Index.vue';
 
 export default {
   name: 'Calendar',

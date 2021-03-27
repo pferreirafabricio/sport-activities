@@ -21,14 +21,20 @@
         </v-tooltip>
       </v-col>
     </v-row>
+    <CreateDialog ref="createDialog" />
   </v-container>
 </template>
 
 <script>
+import CreateDialog from './CreateDialog.vue';
+
 export default {
+  components: { CreateDialog },
   name: 'CreateSportActivity',
   methods: {
-    openCreateActivityDialog() {},
+    openCreateActivityDialog() {
+      this.$refs.createDialog.toggleDialogExhibition();
+    },
   },
 };
 </script>
