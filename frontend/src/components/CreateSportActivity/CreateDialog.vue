@@ -1,8 +1,11 @@
 <template>
   <v-dialog v-model="open" max-width="700">
     <v-card>
-      <v-card-title class="headline grey lighten-2">
-        Criar nova atividade
+      <v-card-title class="headline grey lighten-4 justify-space-between">
+        <span>Criar nova atividade</span>
+        <v-btn dark icon fab color="error" @click="open = false">
+          <v-icon>close</v-icon>
+        </v-btn>
       </v-card-title>
 
       <v-card-text>
@@ -162,19 +165,26 @@
               </v-col>
 
               <!-- Repeat? -->
-              <v-col cols="12" sm="12" md="2">
+              <v-col cols="12" sm="12" md="2" class="pb-0">
                 <v-checkbox v-model="repeat" label="Repetir"></v-checkbox>
               </v-col>
 
-              <v-col cols="12" sm="12" md="12" v-if="repeat">
-                <v-slider
-                  label="Intervalo de semanas"
-                  thumb-color="green accent-3"
-                  thumb-label="always"
-                  v-model="Fields.recurrence"
-                ></v-slider>
-
-              </v-col>
+              <v-slide-x-transition>
+                <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+                  class="pt-0"
+                  v-if="repeat"
+                >
+                  <v-slider
+                    label="Intervalo de semanas"
+                    thumb-color="green accent-3"
+                    thumb-label="always"
+                    v-model="Fields.recurrence"
+                  ></v-slider>
+                </v-col>
+              </v-slide-x-transition>
             </v-row>
           </v-container>
         </v-form>
@@ -302,9 +312,9 @@ export default {
     formatDate(unformatedDate) {
       if (!unformatedDate) {
         return null;
-      };
+      }
 
-      const [year, month, day] = unformatedDate.split('-');
+      const [year, month, day] = unformatedDate.split("-");
 
       return `${day}/${month}/${year}`;
     },
