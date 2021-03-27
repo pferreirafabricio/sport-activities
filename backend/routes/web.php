@@ -15,12 +15,12 @@
 
 $router->group(['name' => 'api'], function () use ($router) {
     $router->group(['prefix' => 'sports'], function () use ($router) {
-        $router->get('/sports/activies', function () {
-            return ['1', '2'];
-        });
+        $router->get('/activies', [
+            'uses' => 'SportActivityController@index'
+        ]);
 
-        $router->post('/sports/activity', function () {
-            return response()->json(['some'], 400);
-        });
+        $router->post('/activity', [
+            'uses' => 'SportActivityController@create'
+        ]);
     });
 });
