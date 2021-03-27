@@ -32,7 +32,7 @@
               </v-col>
 
               <!-- Select date -->
-              <v-col cols="12">
+              <v-col cols="12" class="pb-0">
                 <v-dialog
                   persistent
                   width="290px"
@@ -43,7 +43,7 @@
                   <template v-slot:activator="{ on, attrs }">
                     <v-text-field
                       readonly
-                      label="Data da atividade"
+                      label="De"
                       prepend-icon="mdi-calendar"
                       v-model="Fields.date"
                       v-bind="attrs"
@@ -51,7 +51,11 @@
                       :rules="Rules.date"
                     ></v-text-field>
                   </template>
-                  <v-date-picker v-model="Fields.date" scrollable>
+                  <v-date-picker
+                    scrollable
+                    v-model="unformatedDate"
+                    @click:date="Fields.date = formatDate(unformatedDate)"
+                  >
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="showDatePicker = false">
                       Cancelar
@@ -68,7 +72,7 @@
               </v-col>
 
               <!-- Select start time -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="6" class="pt-0">
                 <v-dialog
                   ref="timeStartPicker"
                   v-model="showTimeStartPicker"
@@ -113,7 +117,7 @@
               </v-col>
 
               <!-- Select end time -->
-              <v-col cols="12" sm="6">
+              <v-col cols="12" sm="6" class="pt-0">
                 <v-dialog
                   ref="timeEndPicker"
                   v-model="showTimeEndPicker"
@@ -222,11 +226,11 @@
 </template>
 
 <script>
-import api from '@/api';
+import api from "@/api";
 
 export default {
-  name: 'CreateSportActivityDialog',
-  emits: ['getAllEvents'],
+  name: "CreateSportActivityDialog",
+  emits: ["newActivityCreated"],
   data() {
     return {
       Fields: {
@@ -237,23 +241,19 @@ export default {
         endHour: "",
         recurrence: 0,
       },
+      unformatedDate: "",
       Rules: {
         name: [
           (v) => !!v || "Nome é obrigatório",
           (v) => v.length <= 60 || "O nome deve ter no máximo 60 caracteres",
         ],
         description: [
-          (v) => v.length <= 255 || "A descrição deve ter no máximo 255 caracteres",
+          (v) =>
+            v.length <= 255 || "A descrição deve ter no máximo 255 caracteres",
         ],
-        date: [
-          (v) => !!v || "A data é obrigatória",
-        ],
-        startHour: [
-          (v) => !!v || "A hora de ínicio é obrigatória",
-        ],
-        endHour: [
-          (v) => !!v || "A hora de fim é obrigatória",
-        ],
+        date: [(v) => !!v || "A data é obrigatória"],
+        startHour: [(v) => !!v || "A hora de ínicio é obrigatória"],
+        endHour: [(v) => !!v || "A hora de fim é obrigatória"],
       },
       loading: false,
       open: false,
@@ -264,8 +264,8 @@ export default {
       showTimeEndPicker: false,
       notification: {
         show: false,
-        text: '',
-        color: 'success',
+        text: "",
+        color: "success",
       },
     };
   },
@@ -273,37 +273,46 @@ export default {
     createSportActivity() {
       if (!this.formIsValid) {
         this.notification.show = true;
-        this.notification.text = 'Por favor, revise todos os campos';
-        this.notification.color = 'warning';
+        this.notification.text = "Por favor, revise todos os campos";
+        this.notification.color = "warning";
         return;
       }
 
       this.loading = true;
-      api.post('/sports/activity', this.Fields)
+      api
+        .post("/sports/activity", this.Fields)
         .then(() => {
-          this.notification.show = true;
-          this.notification.text = 'Atividade criada com sucesso';
-          this.notification.color = 'success';
-
           this.open = false;
           this.cleanData();
-          this.$emits('newActivityCreated');
+          this.$emit("newActivityCreated", "");
+
+          this.notification.text = "Atividade criada com sucesso";
+          this.notification.color = "success";
         })
         .catch(() => {
-          this.notification.show = true;
-          this.notification.text = 'Houve um problema ao criar a atividade';
-          this.notification.color = 'error';
+          this.notification.text = "Houve um problema ao criar a atividade";
+          this.notification.color = "error";
         })
         .finally(() => {
+          this.notification.show = true;
           this.loading = false;
         });
     },
     toggleDialogExhibition() {
       this.open = !this.open;
     },
+    formatDate(unformatedDate) {
+      if (!unformatedDate) {
+        return null;
+      };
+
+      const [year, month, day] = unformatedDate.split('-');
+
+      return `${day}/${month}/${year}`;
+    },
     cleanData() {
       Object.keys(this.Fields).forEach(([key]) => {
-        this.Fields[key] = '';
+        this.Fields[key] = "";
       });
     },
   },

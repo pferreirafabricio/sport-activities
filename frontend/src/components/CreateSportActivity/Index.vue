@@ -21,16 +21,20 @@
         </v-tooltip>
       </v-col>
     </v-row>
-    <CreateDialog ref="createDialog" />
+    <CreateDialog
+      ref="createDialog"
+      @newActivityCreated="$emit('newActivityCreated')"
+    />
   </v-container>
 </template>
 
 <script>
-import CreateDialog from './CreateDialog.vue';
+import CreateDialog from "./CreateDialog.vue";
 
 export default {
+  name: "CreateSportActivity",
+  emits: ["newActivityCreated"],
   components: { CreateDialog },
-  name: 'CreateSportActivity',
   methods: {
     openCreateActivityDialog() {
       this.$refs.createDialog.toggleDialogExhibition();
