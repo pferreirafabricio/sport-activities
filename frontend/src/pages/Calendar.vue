@@ -1,18 +1,22 @@
 <template>
-  <vue-cal
-    active-view="week"
-    :disable-views="['years', 'year']"
-    :events="events"
-  />
+  <v-container>
+    <CreateSportActivity />
+    <vue-cal
+      active-view="week"
+      :disable-views="['years', 'year']"
+      :events="events"
+    />
+  </v-container>
 </template>
 
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
+import CreateSportActivity from '../components/CreateSportActivity.vue';
 
 export default {
   name: 'Calendar',
-  components: { VueCal },
+  components: { VueCal, CreateSportActivity },
   data() {
     return {
       events: [
