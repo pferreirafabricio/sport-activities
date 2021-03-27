@@ -41,7 +41,7 @@ class SportActivityController extends Controller
             $this->validate($request, [
                 'name' => 'required|string|min:1|max:60',
                 'description' => 'nullable|string|max:255',
-                'date' => 'required|date',
+                'date' => 'required|date_format:d/m/Y',
                 'startHour' => 'required|date_format:H:i',
                 'endHour' => 'required|date_format:H:i',
                 'recurrence' => 'nullable|integer',
