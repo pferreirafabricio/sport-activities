@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import VueCal from 'vue-cal'
-import 'vue-cal/dist/vuecal.css'
+import VueCal from 'vue-cal';
+import 'vue-cal/dist/vuecal.css';
 
 export default {
   name: 'Calendar',
@@ -20,7 +20,7 @@ export default {
           start: '2021-03-27 14:30',
           end: '2021-03-27 20:30',
           title: 'Need to go shopping',
-          class: 'sport_activity'
+          class: 'sport_activity',
         },
       ],
     };
