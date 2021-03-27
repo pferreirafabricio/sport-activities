@@ -3,6 +3,7 @@
     <CreateSportActivity />
     <vue-cal
       active-view="week"
+      locale="pt-br"
       :disable-views="['years', 'year']"
       :events="events"
     />

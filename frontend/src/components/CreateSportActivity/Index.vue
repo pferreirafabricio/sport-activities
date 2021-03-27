@@ -17,7 +17,7 @@
               <v-icon dark>add</v-icon>
             </v-btn>
           </template>
-          <span>Add new sport activity</span>
+          <span>Criar nova atividade esportiva</span>
         </v-tooltip>
       </v-col>
     </v-row>
