@@ -39,18 +39,18 @@ class SportActivityController extends Controller
                 'name' => 'required|string|min:1|max:60',
                 'description' => 'nullable|string|max:255',
                 'date' => 'required|date',
-                'start_hour' => 'required|time',
-                'end_hour' => 'required|time',
+                'start_hour' => 'required|date_format:H:i',
+                'end_hour' => 'required|date_format:H:i',
                 'recurrence' => 'nullable|integer',
             ]);
 
             $sportActivityData = [
-                'name' => $request->only('name'),
-                'description' => $request->only('description'),
-                'date' => $request->only('date'),
-                'start_hour' => $request->only('start_hour'),
-                'end_hour' => $request->only('end_hour'),
-                'recurrence' => $request->only('recurrence'),
+                'name' => $request->input('name'),
+                'description' => $request->input('description'),
+                'date' => date('Y-m-d', strtotime($request->input('date'))) ,
+                'start_hour' => $request->input('start_hour'),
+                'end_hour' => $request->input('end_hour'),
+                'recurrence' => $request->input('recurrence') ?? null,
             ];
 
             SportActivity::create($sportActivityData);
@@ -64,7 +64,7 @@ class SportActivityController extends Controller
             ], 400);
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => 'Something was wrong creating the sports acitivity'
+                'error' => 'Something was wrong creating the sports acitivity',
             ], 500);
         }
     }
