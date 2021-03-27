@@ -2,7 +2,7 @@ import Calendar from '@/pages/Calendar.vue';
 
 export default [
   {
-    path: '/home',
+    path: '/',
     redirect: '/calendar',
   },
   {

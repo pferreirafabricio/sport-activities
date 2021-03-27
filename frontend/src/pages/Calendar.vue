@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <CreateSportActivity />
+    <CreateSportActivity @newActivityCreated="getAllEvents()" />
     <vue-cal
       active-view="week"
       locale="pt-br"
@@ -13,6 +13,9 @@
 <script>
 import VueCal from 'vue-cal';
 import 'vue-cal/dist/vuecal.css';
+
+import api from '@/api';
+
 import CreateSportActivity from '../components/CreateSportActivity/Index.vue';
 
 export default {
@@ -20,24 +23,41 @@ export default {
   components: { VueCal, CreateSportActivity },
   data() {
     return {
-      events: [
-        {
-          start: '2021-03-27 14:30',
-          end: '2021-03-27 20:30',
-          title: 'Need to go shopping',
-          class: 'sport_activity',
-        },
-      ],
+      events: [],
+      loading: false,
     };
   },
+  created() {
+    this.getAllEvents();
+  },
   methods: {
+    getAllEvents() {
+      this.loading = true;
+      api.get('/sports/activies')
+        .then((response) => {
+          this.events = response.data.data;
 
+          // Add the yellow background
+          this.events.forEach(event => {
+            event['class'] = 'sport_activity';
+
+            if (!event['content']) {
+              event['content'] = '<span class="material-icons">fitness_center</span>'
+            }
+          });
+        })
+        .catch(() => {
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
   },
 };
 </script>
 
 <style>
 .sport_activity {
-  background-color: yellow;
+  background-color: #FFEB3B;
 }
 </style>
