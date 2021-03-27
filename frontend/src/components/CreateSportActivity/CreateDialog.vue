@@ -169,13 +169,11 @@
               <v-col cols="12" sm="12" md="12" v-if="repeat">
                 <v-slider
                   label="Intervalo de semanas"
-                  thumb-color="yellow"
+                  thumb-color="green accent-3"
                   thumb-label="always"
-                  :max="1"
-                  :min="52"
-                  value=""
                   v-model="Fields.recurrence"
                 ></v-slider>
+
               </v-col>
             </v-row>
           </v-container>
@@ -311,9 +309,11 @@ export default {
       return `${day}/${month}/${year}`;
     },
     cleanData() {
-      Object.keys(this.Fields).forEach(([key]) => {
+      Object.keys(this.Fields).forEach((key) => {
         this.Fields[key] = "";
       });
+
+      this.formIsValid = true;
     },
   },
 };
