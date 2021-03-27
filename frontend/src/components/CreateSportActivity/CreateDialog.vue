@@ -187,6 +187,7 @@
           dark
           color="green accent-3"
           class="d-flex align-items-center"
+          :loading="loading"
           @click="createSportActivity()"
         >
           <span>Criar</span>
@@ -194,11 +195,37 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <!-- Notification -->
+    <v-snackbar
+      absolute
+      top
+      outlined
+      right
+      v-model="notification.show"
+      :color="notification.color"
+      :timeout="2000"
+    >
+      {{ notification.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          :color="notification.color"
+          text
+          v-bind="attrs"
+          @click="notification.show = false"
+        >
+          <v-icon>close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar>
   </v-dialog>
 </template>
 
 <script>
+import api from '@/api';
+
 export default {
+  name: 'CreateSportActivityDialog',
   data() {
     return {
       Fields: {
@@ -227,18 +254,55 @@ export default {
           (v) => !!v || "A hora de fim é obrigatória",
         ],
       },
+      loading: false,
       open: false,
       repeat: false,
       formIsValid: false,
       showDatePicker: false,
       showTimeStartPicker: false,
       showTimeEndPicker: false,
+      notification: {
+        show: false,
+        text: '',
+        color: 'success',
+      },
     };
   },
   methods: {
-    createSportActivity() {},
+    createSportActivity() {
+      if (!this.formIsValid) {
+        this.notification.show = true;
+        this.notification.text = 'Por favor, revise todos os campos';
+        this.notification.color = 'warning';
+        return;
+      }
+
+      this.loading = true;
+      api.post('/sports/activity', this.Fields)
+        .then(() => {
+          this.notification.show = true;
+          this.notification.text = 'Atividade criada com sucesso';
+          this.notification.color = 'success';
+
+          this.open = false;
+          this.cleanData();
+        })
+        .catch(() => {
+          this.notification.show = true;
+          this.notification.text = 'Houve um problema ao criar a atividade';
+          this.notification.color = 'error';
+        })
+        .finally(() => {
+          this.loading = false;
+        });
+    },
     toggleDialogExhibition() {
       this.open = !this.open;
+    },
+    cleanData() {
+      Object.keys(this.Fields).forEach(([key]) => {
+        this.Fields[key] = '';
+      });
     },
   },
 };
