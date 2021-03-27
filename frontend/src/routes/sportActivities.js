@@ -3,11 +3,11 @@ import Calendar from '@/pages/Calendar.vue';
 export default [
   {
     path: '/home',
-    redirect: '/',
+    redirect: '/calendar',
   },
   {
-    path: '/',
-    name: 'home',
+    path: '/calendar',
+    name: 'calendar',
     component: Calendar,
   },
 ];
