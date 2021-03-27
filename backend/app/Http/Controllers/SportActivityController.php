@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\SportActivities\CalendarResources;
 use App\Models\SportActivity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class SportActivityController extends Controller
     {
         try {
             return response()->json([
-                'data' => SportActivity::all(),
+                'data' => CalendarResources::collection(SportActivity::all()),
             ]);
         } catch (\Exception $exception) {
             return response()->json([
