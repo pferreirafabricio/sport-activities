@@ -6,6 +6,7 @@ use App\Http\Resources\SportActivities\CalendarResources;
 use App\Models\SportActivity;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SportActivityController extends Controller
@@ -31,7 +32,8 @@ class SportActivityController extends Controller
     /**
      * Create a new sport acitivty
      *
-     * @return void
+     * @param Request $request
+     * @return JsonResponse
      */
     public function create(Request $request): JsonResponse
     {
@@ -48,13 +50,32 @@ class SportActivityController extends Controller
             $sportActivityData = [
                 'name' => $request->input('name'),
                 'description' => $request->input('description'),
-                'date' => date('Y-m-d', strtotime($request->input('date'))) ,
+                'date' => \DateTime::createFromFormat('d/m/Y', $request->input('date'))->format('Y-m-d'),
                 'start_hour' => $request->input('startHour'),
                 'end_hour' => $request->input('endHour'),
                 'recurrence' => (int) $request->input('recurrence') ?? null,
             ];
 
-            SportActivity::create($sportActivityData);
+            $recurrenceQuantity = $sportActivityData['recurrence'];
+
+            if ($recurrenceQuantity && $recurrenceQuantity > 1) {
+                DB::beginTransaction();
+
+                for ($count = 0; $count < $recurrenceQuantity; $count++) {
+                    SportActivity::create($sportActivityData);
+                    $sportActivityData['date'] = date('Y-m-d', strtotime($sportActivityData['date'] . '+7days'));
+
+                    /**
+                     * @note Set the 'children' recurrence as NULL, only the 'father' will
+                     * hold the information of how many recurrences this activity has
+                     */
+                    $sportActivityData['recurrence'] = null;
+                }
+
+                DB::commit();
+            } else {
+                SportActivity::create($sportActivityData);
+            }
 
             return response()->json([
                 'message' => 'Sport activity created successfully',
@@ -64,6 +85,8 @@ class SportActivityController extends Controller
                 'error' => $validationException->errors()
             ], 400);
         } catch (\Exception $exception) {
+            DB::rollBack();
+
             return response()->json([
                 'error' => 'Something was wrong creating the sports acitivity',
                 'errorMessage' => $exception->getMessage()
