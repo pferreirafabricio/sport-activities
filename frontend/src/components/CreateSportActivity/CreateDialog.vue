@@ -6,7 +6,7 @@
       </v-card-title>
 
       <v-card-text>
-        <v-form>
+        <v-form v-model="formIsValid">
           <v-container>
             <v-row>
               <v-col cols="12">
@@ -48,6 +48,7 @@
                       v-model="Fields.date"
                       v-bind="attrs"
                       v-on="on"
+                      :rules="Rules.date"
                     ></v-text-field>
                   </template>
                   <v-date-picker v-model="Fields.date" scrollable>
@@ -83,6 +84,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      :rules="Rules.startHour"
                     ></v-text-field>
                   </template>
                   <v-time-picker
@@ -127,6 +129,7 @@
                       readonly
                       v-bind="attrs"
                       v-on="on"
+                      :rules="Rules.endHour"
                     ></v-text-field>
                   </template>
                   <v-time-picker
@@ -214,9 +217,19 @@ export default {
         description: [
           (v) => v.length <= 255 || "A descrição deve ter no máximo 255 caracteres",
         ],
+        date: [
+          (v) => !!v || "A data é obrigatória",
+        ],
+        startHour: [
+          (v) => !!v || "A hora de ínicio é obrigatória",
+        ],
+        endHour: [
+          (v) => !!v || "A hora de fim é obrigatória",
+        ],
       },
       open: false,
       repeat: false,
+      formIsValid: false,
       showDatePicker: false,
       showTimeStartPicker: false,
       showTimeEndPicker: false,
