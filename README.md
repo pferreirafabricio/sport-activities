@@ -1,5 +1,5 @@
 <h5 align="center">
-  <b>Sport Activities</b> :yo_yo:
+  <b>Sport Activities</b> 🥋
 </h5>
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
