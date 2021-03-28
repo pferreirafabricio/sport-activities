@@ -5,7 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+defaults:
+      run:
+        working-directory: ./backend
+        
 jobs:
   build:
 
@@ -16,9 +19,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
-    - name: Enter in the backend folder
-      run: cd backend
     
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
