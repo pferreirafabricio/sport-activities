@@ -17,8 +17,8 @@ This project is a simple calendar for a sports establishment to add sports activ
 
 ## :rosette: API Routes
 ```
-GET - sports/activity
-POST - sports/activies
+GET - sports/activies
+POST - sports/activity
 ```
 
 ## :running_man: API - Installing and Running
