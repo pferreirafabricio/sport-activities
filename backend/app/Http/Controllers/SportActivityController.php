@@ -19,12 +19,15 @@ class SportActivityController extends Controller
     public function index(): JsonResponse
     {
         try {
+            $activities = SportActivity::select('name', 'description', 'date', 'start_hour', 'end_hour')
+                ->get();
+
             return response()->json([
-                'data' => CalendarResources::collection(SportActivity::all()),
+                'data' => CalendarResources::collection($activities),
             ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'error' => 'Something was wrong getting the sports activies'
+                'error' => 'Something was wrong getting the sports activies',
             ], 500);
         }
     }
