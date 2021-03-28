@@ -28,7 +28,7 @@ POST - sports/activies
  4. Install dependencies: ```composer install```
  5. Run the migrations: ```php artisan migrate```
  6. Finally start the built-in PHP development server ```php -S localhost:8000 -t public``` 😃
- > __OBS 1:__ Remember to change the .env configurations <br/>
+ > __OBS:__ Remember to change the .env configurations <br/>
  
 ## 	:running_woman: Front End - Installing and Running
  1. Clone this repository ```https://github.com/pferreirafabricio/sport-activities.git```;
@@ -37,6 +37,7 @@ POST - sports/activies
  4. Install dependencies: ```npm install```
  5. Run the server: ```npm run serve```
  6. Access in your browser: ```http://localhost:8080``` 😃
+ > __OBS:__ If your API is running in a different address than `http://locahost:8000`, change the baseUrl variable in `frontend/src/api/index.js`<br/>
 
 ## :bricks: This project was built with: 
 - [PHP](https://www.php.net)
