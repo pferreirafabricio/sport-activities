@@ -92,7 +92,6 @@ class SportActivityController extends Controller
 
             return response()->json([
                 'error' => 'Something was wrong creating the sports acitivity',
-                'errorMessage' => $exception->getMessage()
             ], 500);
         }
     }
