@@ -58,6 +58,12 @@ export default {
 </script>
 
 <style>
+.vuecal__no-event,
+.vuecal__flex .vuecal__cell-content {
+  color: white;
+  background-color: rgba(66, 185, 131, 0.5);
+}
+
 .sport_activity {
   background-color: #ffeb3b;
 }
