@@ -12,7 +12,8 @@
    <img src="./docs/create-activity-2.png" width="auto" height="400px"/>
 </div>
 
-## :open_book: About 
+## :open_book: About
+This project is a simple calendar for a sports establishment to add sports activities for customers to see in an organized way. <br />
 
 ## :rosette: API Routes
 ```
