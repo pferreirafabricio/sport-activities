@@ -1,1 +1,51 @@
-# sport-activities
+<h5 align="center">
+  <b>Sport Activities</b> 🥋
+</h5>
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+</p>
+
+## :eyes: Overview 
+<div>
+</div>
+
+## :open_book: About 
+
+## :rosette: API Routes
+```
+GET - sports/activity
+POST - sports/activies
+```
+
+## :running_man: API - Installing and Running
+ 1. Clone this repository ```https://github.com/pferreirafabricio/sport-activities.git```;
+ 2. Enter in the project's folder: ```cd sport-activities```
+ 3. Enter in the API's folder: ```cd backend```
+ 4. Install dependencies: ```composer install```
+ 5. Run the migrations: ```php artisan migrate```
+ 6. Finally start the built-in PHP development server ```php -S localhost:8000 -t public``` 😃
+ > __OBS 1:__ Remember to change the .env configurations <br/>
+ 
+## 	:running_woman: Front End - Installing and Running
+ 1. Clone this repository ```https://github.com/pferreirafabricio/sport-activities.git```;
+ 2. Enter in the project's folder: ```cd sport-activities```
+ 3. Enter in the FrontEnd's folder: ```cd frontend```
+ 4. Install dependencies: ```npm install```
+ 5. Run the server: ```npm run serve```
+ 6. Access in your browser: ```http://localhost:8080``` 😃
+
+## :bricks: This project was built with: 
+- [PHP](https://www.php.net)
+- [Lumen](https://lumen.laravel.com/)
+- [MySQL](https://www.mysql.com)
+- [Vue](https://vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/)
+
+## :recycle: Contribute
+ 1. Fork this repository;
+ 2. Create a branch with your feature: ```git checkout -b my-feature```
+ 3. Commit your changes: ```git commit -m 'feat: My new feature'```
+ 4. Push your branch: ```git push origin my-feature```
+ 
+## :page_with_curl:	License
+This project is under the MIT license. Take a look at the [LICENSE](LICENSE.md) file for more details.
