@@ -7,6 +7,9 @@
 
 ## :eyes: Overview 
 <div>
+  <img src="./docs/home.png" width="auto" height="400px"/>
+   <img src="./docs/create-activity-1.png" width="auto" height="400px"/>
+   <img src="./docs/create-activity-2.png" width="auto" height="400px"/>
 </div>
 
 ## :open_book: About 
