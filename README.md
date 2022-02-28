@@ -3,6 +3,7 @@
 </h5>
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-green">
+  <img alt="CI Badge" src="https://github.com/pferreirafabricio/sport-activities/actions/workflows/php-test.yml/badge.svg">
 </p>
 
 ## :eyes: Overview 
